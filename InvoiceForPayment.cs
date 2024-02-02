@@ -40,32 +40,12 @@ namespace NET_Homework_10_1
         public int NumberDaysPaymentDelay { get; set; }
 
         public static bool SerializationEnabled { get; set; }
-
-        [Serialization("PaymentWithoutPenalty")]
-        public int PaymentWithoutPenalty {
-            get
-            {
-                return PaymentPerDay* AmountDays;
-            }
-            set { }
-        }
-        [Serialization("Fine")]
-        public int Fine
-        {
-            get
-            {
-                return PenaltyOneDayLatePayment * NumberDaysPaymentDelay;
-            }
-            set { }
-        }
-        [Serialization("TotalAmountDue")]
-        public int TotalAmountDue {
-            get
-            {
-                return PaymentWithoutPenalty + Fine;
-            }
-            set { }
-        }
+        [Serialization]
+        public int PaymentWithoutPenalty => PaymentPerDay * AmountDays;
+        [Serialization]
+        public int Fine => PenaltyOneDayLatePayment * NumberDaysPaymentDelay;
+        [Serialization]
+        public int TotalAmountDue => PaymentWithoutPenalty + Fine;
 
         public InvoiceForPayment() { }
         public InvoiceForPayment(int paymentPerDay, int amountDays, int penaltyOneDayLatePayment, int numberDaysPaymentDelay)

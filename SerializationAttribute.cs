@@ -25,33 +25,6 @@ namespace NET_Homework_10_1
 {
     public sealed class SerializationAttribute:Attribute
     {
-        public string Name;
-        public SerializationAttribute(string name)
-        {
-            Name = name;
-        }
-    }
-
-    public class Converter : JsonConverter<int>
-    {
-        public override bool CanConvert(Type typeToConvert)
-        {
-            var attrs = typeToConvert.GetCustomAttributes(typeof(SerializationAttribute), false);
-            return attrs.Length > 0;
-        }
-
-        public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            return 0;
-        }
-
-        public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
-        {
-            var attrs = value.GetType().GetCustomAttributes(typeof(SerializationAttribute), false);
-            if (attrs.Length > 0 && InvoiceForPayment.SerializationEnabled)
-            {
-                writer.WriteNumber(Encoding.UTF8.GetBytes((attrs[0] as SerializationAttribute).Name), (int)value);
-            }
-        }
+        public SerializationAttribute() {}
     }
 }
