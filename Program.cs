@@ -1,4 +1,4 @@
-﻿//Разработать класс "Счет для оплаты".
+﻿/*//Разработать класс "Счет для оплаты".
 //В классе предусмотреть следующие поля
 //- оплата за день
 //- количество дней
@@ -45,3 +45,28 @@ InvoiceForPayment rez = (InvoiceForPayment)data.ReadObject(fileStream);
 Console.WriteLine(rez);
 fileStream.Close();
 
+*/
+using System;
+using System.IO;
+using System.Xml.Serialization;
+using ConsoleApp.NET_Homework_10_1;
+
+
+Console.WriteLine("Serialize everything (1 - Yes, 0 - No)?");
+        bool isSerialization = Convert.ToBoolean(Convert.ToInt32(Console.ReadLine()));
+        PaymentBill.SerializationEnabled = isSerialization;
+        string xmlString;
+        if (PaymentBill.SerializationEnabled)
+        {
+            DetailPaymentBill bill = new DetailPaymentBill(100, 5, 10, 2);
+            xmlString = SerializeBill.SerializeToXml(bill);
+
+        }
+        else
+        {
+            PaymentBill bill = new PaymentBill(100, 5, 10, 2);
+            xmlString = SerializeBill.SerializeToXml(bill);
+        }
+
+        File.WriteAllText("payment_bill.xml", xmlString);
+    

@@ -13,18 +13,43 @@
 //Разработать приложение, в котором необходимо продемонстрировать использование этого класса,
 //результаты должны записываться и считываться из файла.
 
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.Serialization;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace NET_Homework_10_1
+namespace ConsoleApp.NET_Homework_10_1
 {
-    public sealed class SerializationAttribute:Attribute
-    {
-        public SerializationAttribute() {}
+    public class PaymentBill
+        {
+            //Поля
+            public int PaymentPerDay { get; set; }
+            public int AmountDays { get; set; }
+            public int PenaltyOneDayLatePayment { get; set; }
+            public int NumberDaysPaymentDelay { get; set; }
+
+            //Статична властивість для формотування
+
+            public static bool SerializationEnabled { get; set; }
+            static PaymentBill()
+            {
+                SerializationEnabled = false;
+            }
+            public PaymentBill(int paymentPerDay, int amountDays, int penaltyOneDayLatePayment, int numberDaysPaymentDelay)
+            {
+                PaymentPerDay = paymentPerDay;
+                AmountDays = amountDays;
+                PenaltyOneDayLatePayment = penaltyOneDayLatePayment;
+                NumberDaysPaymentDelay = numberDaysPaymentDelay;
+            }
+
+            public PaymentBill() { }
+        }
     }
-}
